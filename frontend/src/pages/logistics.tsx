@@ -50,16 +50,15 @@ function Home() {
     fetchDataAndFly();
   }, [city]);
 
-  console.log(city);
-  console.log(lat);
-  console.log(lon);
-
 
   return (
     <Layout>
       <Seo templateTitle="Home" description="" />
       <main className="grow">
-        <div className="h-[75vh] w-full">
+        <div className="flex items-center justify-center">
+          <div className="basis-1/2 flex flex-col items-center justify-center">
+          </div>
+        <div className="basis-1/2 h-[75vh] w-full">
           <StaticMap
             ref={mapRef}
             initialViewState={{
@@ -72,6 +71,7 @@ function Home() {
             mapStyle="mapbox://styles/mapbox/streets-v11"
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
           ></StaticMap>
+        </div>
         </div>
       </main>
     </Layout>
