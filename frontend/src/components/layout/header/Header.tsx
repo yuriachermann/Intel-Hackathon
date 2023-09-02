@@ -49,18 +49,18 @@ function Header({
             </button>
             <Link href="/" className="flex flex-row items-center gap-4">
               <Image
-                src="/logo/logo.png"
+                src="/logo.png"
                 alt="logo"
                 className="h-6 w-auto"
                 width={10}
                 height={10}
               />
               <Image
-                src="/logo/name_horizontal.svg"
+                src="/name.png"
                 alt="name"
-                className="h-3.5 w-auto"
-                width={10}
-                height={10}
+                className="h-5 w-auto"
+                width={500}
+                height={500}
               />
             </Link>
           </div>
