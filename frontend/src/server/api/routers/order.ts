@@ -12,7 +12,6 @@ export const orderRouter = createTRPCRouter({
         orderReview: z.string(),
         orderLat: z.number(),
         orderLng: z.number(),
-        orderDistance: z.number(),
       })
     )
     .mutation(async ({ ctx: { prisma }, input }) => {
@@ -25,7 +24,6 @@ export const orderRouter = createTRPCRouter({
           order_review: input?.orderReview,
           order_lat: input?.orderLat,
           order_lng: input?.orderLng,
-          order_distance: input?.orderDistance,
         },
       })
       return prisma.order.findMany()
@@ -44,7 +42,6 @@ export const orderRouter = createTRPCRouter({
           orderReview: z.string().optional(),
           orderLat: z.number().optional(),
           orderLng: z.number().optional(),
-          orderDistance: z.number().optional(),
         })
         .optional()
     )
@@ -64,8 +61,6 @@ export const orderRouter = createTRPCRouter({
             input?.orderReview != null ? input?.orderReview : undefined,
           order_lat: input?.orderLat != null ? input?.orderLat : undefined,
           order_lng: input?.orderLng != null ? input?.orderLng : undefined,
-          order_distance:
-            input?.orderDistance != null ? input?.orderDistance : undefined,
         },
       })
     }),
@@ -85,7 +80,6 @@ export const orderRouter = createTRPCRouter({
           orderReview: z.string().optional(),
           orderLat: z.number().optional(),
           orderLng: z.number().optional(),
-          orderDistance: z.number().optional(),
         }),
       })
     )
@@ -116,10 +110,6 @@ export const orderRouter = createTRPCRouter({
             input?.update.orderLat != null ? input?.update.orderLat : undefined,
           order_lng:
             input?.update.orderLng != null ? input?.update.orderLng : undefined,
-          order_distance:
-            input?.update.orderDistance != null
-              ? input?.update.orderDistance
-              : undefined,
         },
       })
       return prisma.order.findMany()

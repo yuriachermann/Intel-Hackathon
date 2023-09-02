@@ -26,7 +26,6 @@ model Order {
   order_review     String    @default("review")
   order_lat        Float     @default(0)
   order_lng        Float     @default(0)
-  order_distance   Float     @default(0)
 }
 
 // Necessary for Next auth
