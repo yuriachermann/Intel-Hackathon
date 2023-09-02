@@ -2,8 +2,7 @@ import React, { useRef, useEffect } from "react";
 import type * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { ContactShadows, OrbitControls } from "@react-three/drei";
-import { PerspectiveCamera } from "three";
+import { ContactShadows, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 const GLTFModel = () => {
   const gltfRef = useRef<THREE.Group>(null);
@@ -32,7 +31,7 @@ const GLTFModel = () => {
 };
 
 const Logo = ({ fov }: { fov: number }) => {
-  const cameraRef = useRef<PerspectiveCamera | null>(null);
+  const cameraRef = useRef<null>(null);
 
   return (
     <Canvas className="h-full w-full">
