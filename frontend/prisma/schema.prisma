@@ -21,12 +21,9 @@ model Order {
   order_updated_at DateTime? @updatedAt @db.Timestamp
   order_user       String    @default("user")
   order_food       String    @default("food")
-  order_address    String    @default("address")
-  order_restaurant String    @default("restaurant")
+  order_city       String    @default("city")
   order_rating     Int       @default(0)
   order_review     String    @default("review")
-  order_image      String    @default("image")
-  order_type       String    @default("type")
   order_lat        Float     @default(0)
   order_lng        Float     @default(0)
   order_distance   Float     @default(0)

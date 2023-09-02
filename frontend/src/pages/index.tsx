@@ -82,7 +82,7 @@ function Home() {
               data-aos="fade-up"
               data-aos-delay="1500"
             >
-              <Link className="button-home" href="/place-order">
+              <Link className="button-home" href="/src/pages/ordering">
                 <span className="label">Explore</span>
                 <span className="icon">
                   <span></span>

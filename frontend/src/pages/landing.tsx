@@ -3,11 +3,11 @@ import "aos/dist/aos.css";
 import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
 
-function Home() {
+function Landing() {
 
   return (
     <Layout>
-      <Seo templateTitle="Home" description="" />
+      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
 
       </main>
@@ -15,4 +15,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;

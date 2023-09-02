@@ -3,7 +3,8 @@ import "aos/dist/aos.css";
 import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
 
-function Flying() {
+function Orders() {
+
 
   return (
     <Layout>
@@ -15,4 +16,4 @@ function Flying() {
   );
 }
 
-export default Flying;
+export default Orders;

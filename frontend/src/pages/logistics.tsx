@@ -6,7 +6,7 @@ import Layout from "../components/layout/Layout";
 import Map from "react-map-gl";
 import mapboxgl from 'mapbox-gl';
 
-function Home() {
+function Logistics() {
   const [city, setCity] = React.useState("");
   const [lat, setLat] = React.useState(0);
   const [lon, setLon] = React.useState(0);
@@ -53,7 +53,7 @@ function Home() {
 
   return (
     <Layout>
-      <Seo templateTitle="Home" description="" />
+      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
         <div className="flex items-center justify-center">
           <div className="basis-1/2 flex flex-col items-center justify-center">
@@ -78,4 +78,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Logistics;

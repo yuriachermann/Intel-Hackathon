@@ -23,7 +23,7 @@ interface MyFormValues {
   currentWeather: string;
 }
 
-function Home() {
+function Ordering() {
   const initialValues: MyFormValues = {
     firstName: "",
     spice: "",
@@ -38,7 +38,7 @@ function Home() {
 
   return (
     <Layout>
-      <Seo templateTitle="Home" description="" />
+      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
         <Formik
           initialValues={initialValues}
@@ -261,4 +261,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Ordering;
