@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  robot_maintenance:
+    build:
+      context: ../robot_maintenance/
+      dockerfile: Dockerfile
+    ports:
+      - 5003:5003
+    volumes:
+      - /home/ubuntu/AI-Hackathon/ai-super-reference-kit-2023/pharmaceutical_manufacturing_business/store:/robot_maintenance/store
+    restart: on-failure
+
+  app_frontend:
+    build:
+      context: ../app_frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 5005:5005
+    volumes:
+      - /home/ubuntu/AI-Hackathon/ai-super-reference-kit-2023/pharmaceutical_manufacturing_business/store:/app_frontend/store
+    restart: on-failure

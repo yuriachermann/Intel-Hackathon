@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/feat-landing-area-detection/data" />
+            <path value="file://$PROJECT_DIR$/feat-demand-forecasting/data" />
+            <path value="file://$PROJECT_DIR$/feat-structural-damage-assessment/data" />
+            <path value="file://$PROJECT_DIR$/feat-traffic-camera-object-detection/data" />
+            <path value="file://$PROJECT_DIR$/feat-voice-data-generation/data" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>
