@@ -3,15 +3,15 @@ import React, { useEffect, useRef } from "react";
 import "aos/dist/aos.css";
 import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
-import Map from "react-map-gl";
-import mapboxgl from 'mapbox-gl';
+import type { MapRef } from 'react-map-gl';
+import Map from 'react-map-gl';
 
 function Logistics() {
   const [city, setCity] = React.useState("");
   const [lat, setLat] = React.useState(0);
   const [lon, setLon] = React.useState(0);
 
-  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const mapRef = useRef<MapRef | null>(null);
 
   const fetchLocation = async () => {
     const apiURL = "https://ipgeolocation.abstractapi.com/v1/";
