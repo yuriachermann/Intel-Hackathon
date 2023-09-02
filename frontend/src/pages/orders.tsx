@@ -1,6 +1,5 @@
 import React from "react";
 import "aos/dist/aos.css";
-import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
 import {api} from '~/utils/api'
 
@@ -10,7 +9,6 @@ function Orders() {
 
   return (
     <Layout>
-      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
         {queryOrders.data?.map((order) => (
           <div key={order.id}>

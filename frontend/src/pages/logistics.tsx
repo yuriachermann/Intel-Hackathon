@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import "aos/dist/aos.css";
-import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
 import type { MapRef } from 'react-map-gl';
 import Map from 'react-map-gl';
@@ -53,7 +52,6 @@ function Logistics() {
 
   return (
     <Layout>
-      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
         <div className="flex items-center justify-center">
           <div className="basis-1/2 flex flex-col items-center justify-center">

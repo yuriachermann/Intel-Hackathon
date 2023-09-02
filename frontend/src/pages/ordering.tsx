@@ -1,19 +1,15 @@
 import React from "react";
 import "aos/dist/aos.css";
-import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
 import {
   Formik,
-  FormikHelpers,
-  FormikProps,
   Form,
   Field,
-  FieldProps,
 } from "formik";
 
 interface MyFormValues {
   firstName: string;
-  spice: string;
+  spiceness: string;
   restriction: string;
   mealTime: string;
   cuisinePreference: string;
@@ -26,7 +22,7 @@ interface MyFormValues {
 function Ordering() {
   const initialValues: MyFormValues = {
     firstName: "",
-    spice: "",
+    spiceness: "",
     restriction: "",
     mealTime: "",
     cuisinePreference: "",
@@ -38,7 +34,6 @@ function Ordering() {
 
   return (
     <Layout>
-      <Seo templateTitle="Delivery" description="" />
       <main className="grow">
         <Formik
           initialValues={initialValues}
@@ -64,18 +59,18 @@ function Ordering() {
                 <div id="my-radio-group">Spice Level</div>
                 <div role="group" aria-labelledby="my-radio-group">
                   <label>
-                    <Field type="radio" name="spice" value="Mild" />
+                    <Field type="radio" name="spiceness" value="Mild" />
                     Mild
                   </label>
                   <label>
-                    <Field type="radio" name="spice" value="Medium" />
+                    <Field type="radio" name="spiceness" value="Medium" />
                     Medium
                   </label>
                   <label>
-                    <Field type="radio" name="spice" value="Spicy" />
+                    <Field type="radio" name="spiceness" value="Spicy" />
                     Spicy
                   </label>
-                  <div>Picked: {values.spice}</div>
+                  <div>Picked: {values.spiceness}</div>
                 </div>
               </div>
               <div>
