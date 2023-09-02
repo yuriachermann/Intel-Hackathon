@@ -26,8 +26,8 @@ function Home() {
         setLat(response.data.latitude);
         setLon(response.data.longitude);
       }
-    } catch (error) {
-      if (error.response && error.response.status === 429) {
+    } catch (error: any) {
+      if (typeof error === 'object' && error !== null && 'response' in error && error.response.status === 429) {
         console.error("Rate limit reached. Try again later.");
       } else {
         console.error("There was an error fetching the data:", error);
