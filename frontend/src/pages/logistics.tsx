@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import "aos/dist/aos.css";
 import Seo from "../components/layout/Seo";
 import Layout from "../components/layout/Layout";
-import StaticMap from "react-map-gl";
+import Map from "react-map-gl";
 import mapboxgl from 'mapbox-gl';
 
 function Home() {
@@ -59,7 +59,7 @@ function Home() {
           <div className="basis-1/2 flex flex-col items-center justify-center">
           </div>
         <div className="basis-1/2 h-[75vh] w-full">
-          <StaticMap
+          <Map
             ref={mapRef}
             initialViewState={{
               latitude: 0,
@@ -70,7 +70,7 @@ function Home() {
             }}
             mapStyle="mapbox://styles/mapbox/streets-v11"
             mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
-          ></StaticMap>
+          ></Map>
         </div>
         </div>
       </main>
