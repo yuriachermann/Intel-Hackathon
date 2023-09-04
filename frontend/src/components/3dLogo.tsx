@@ -20,7 +20,7 @@ const GLTFModel = () => {
 
   useEffect(() => {
     const loader = new GLTFLoader();
-    loader.load("logo-dt.glb", (gltf) => {
+    loader.load("quad.glb", (gltf) => {
       if (gltfRef.current) {
         gltfRef.current.add(gltf.scene);
       }

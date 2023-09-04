@@ -1,17 +1,12 @@
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { api } from "../utils/api";
+import { api } from '~/utils/api';
 import "../styles/global.css";
 import "../i18n/index";
 import { Analytics } from '@vercel/analytics/react'
-// import { Inter } from 'next/font/google'
-//
-// const inter = Inter({
-//   subsets: ['latin'],
-//   variable: '--font-inter',
-//   display: 'swap'
-// })
+
+import "~/styles/additional-styles/blobEffect.scss";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

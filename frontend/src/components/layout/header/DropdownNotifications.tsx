@@ -75,7 +75,7 @@ function DropdownNotifications() {
               onBlur={() => setDropdownOpen(false)}
             >
               <div className="px-4 pb-2 pt-1.5 text-xs font-semibold uppercase text-slate-200">
-                Notifications
+                Orders placed
               </div>
               {/*TODO: place all the orders here*/}
               <ul>

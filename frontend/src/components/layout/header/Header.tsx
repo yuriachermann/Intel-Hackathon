@@ -1,4 +1,3 @@
-import * as HoverCard from "@radix-ui/react-hover-card";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +14,11 @@ function Header({
   sidebarOpen: boolean;
   setSidebarOpen: (sidebarOpen: boolean) => void;
 }) {
+  const router = useRouter();
+  const routeUser: string | undefined = Array.isArray(router.query.user)
+    ? router.query.user[0] // or .join(", ") if you want to convert the array to a comma-separated string
+    : router.query.user;
+
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   const location = useRouter();
@@ -56,9 +60,9 @@ function Header({
                 height={10}
               />
               <Image
-                src="/name.png"
+                src="/name_logo.png"
                 alt="name"
-                className="h-5 w-auto"
+                className="h-4 w-auto"
                 width={500}
                 height={500}
               />
@@ -67,50 +71,56 @@ function Header({
 
           <div className="hidden lg:block">
             <div className="flex flex-row items-center justify-center gap-8">
-              <Link href="/builds">
+              <Link href={`/ordering?${routeUser ? `user=${routeUser}` : ""}`}>
                 <span
                   className={clsx(
-                    "text-[#606060] hover:text-[#EEEEEE]",
-                    pathname.includes("builds") && "!text-[#CC5500]",
+                    "text-[#606060] hover:text-[#BBBBBB]",
+                    pathname.includes("ordering") && "!text-[#CC5500]"
                   )}
                 >
-                  Builds
+                  Place Order
                 </span>
               </Link>
-              <Link href="/inventory">
+              <Link href={`/logistics?${routeUser ? `user=${routeUser}` : ""}`}>
                 <span
                   className={clsx(
-                    "text-[#606060] hover:text-[#EEEEEE]",
-                    pathname.includes("inventory") && "!text-[#CC5500]",
+                    "text-[#606060] hover:text-[#BBBBBB]",
+                    pathname.includes("logistics") && "!text-[#CC5500]"
                   )}
                 >
-                  Inventory
+                  Logistics
                 </span>
               </Link>
-              <HoverCard.Root>
-                <HoverCard.Trigger asChild>
-                  <span
-                    className={clsx(
-                      "text-[#606060] hover:text-[#EEEEEE]",
-                      pathname.includes("community") && "!text-[#CC5500]",
-                    )}
-                  >
-                    Community
-                  </span>
-                </HoverCard.Trigger>
-                <HoverCard.Portal>
-                  <HoverCard.Content
-                    className="rounded-md bg-gray-700 p-3 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all"
-                    sideOffset={1}
-                  >
-                    <div className="flex flex-col gap-[7px]">
-                      Coming soon...
-                    </div>
-
-                    <HoverCard.Arrow className="fill-gray-700" />
-                  </HoverCard.Content>
-                </HoverCard.Portal>
-              </HoverCard.Root>
+              <Link href={`/flying?${routeUser ? `user=${routeUser}` : ""}`}>
+                <span
+                  className={clsx(
+                    "text-[#606060] hover:text-[#BBBBBB]",
+                    pathname.includes("flying") && "!text-[#CC5500]"
+                  )}
+                >
+                  Flying
+                </span>
+              </Link>
+              <Link href={`/landing?${routeUser ? `user=${routeUser}` : ""}`}>
+                <span
+                  className={clsx(
+                    "text-[#606060] hover:text-[#BBBBBB]",
+                    pathname.includes("landing") && "!text-[#CC5500]"
+                  )}
+                >
+                  Landing
+                </span>
+              </Link>
+              <Link href={`/delivery?${routeUser ? `user=${routeUser}` : ""}`}>
+                <span
+                  className={clsx(
+                    "text-[#606060] hover:text-[#BBBBBB]",
+                    pathname.includes("delivery") && "!text-[#CC5500]"
+                  )}
+                >
+                  Delivery
+                </span>
+              </Link>
             </div>
           </div>
 
@@ -145,7 +155,7 @@ function Header({
               </button>
             </div>
             <Notifications />
-            <hr className="hidden lg:block mx-2 h-6 w-px bg-slate-200" />
+            <hr className="mx-2 hidden h-6 w-px bg-slate-200 lg:block" />
             <UserMenu />
           </div>
         </div>

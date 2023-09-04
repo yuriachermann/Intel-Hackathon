@@ -10,8 +10,9 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ['i.imgur.com', 'picsum.photos', 'www.w3.org'],
+    domains: ['i.imgur.com', 'picsum.photos', 'www.w3.org', 'tooldetectivestorageacc.blob.core.windows.net'],
   },
+  swcMinify: false,
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
