@@ -48,7 +48,7 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `http://146.152.226.46:8080/upload?street_image_id=${streetImageID}`,
+          `http://172.174.255.171:8080/upload?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {
