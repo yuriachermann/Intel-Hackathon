@@ -48,7 +48,7 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `https://feat-flying.up.railway.app/upload?street_image_id=${streetImageID}`,
+          `http://localhost:8080/upload?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {
