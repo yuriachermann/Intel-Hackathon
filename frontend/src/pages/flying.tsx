@@ -48,11 +48,11 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `http://localhost:8080/upload?street_image_id=${streetImageID}`,
+          `https://feat-flying.up.railway.app/upload?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data",
+              'Content-Type': 'multipart/form-data',
             },
           }
         );
