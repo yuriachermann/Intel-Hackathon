@@ -3,7 +3,6 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { api } from '~/utils/api';
 import "../styles/global.css";
-import "../i18n/index";
 import { Analytics } from '@vercel/analytics/react'
 
 import "~/styles/additional-styles/blobEffect.scss";

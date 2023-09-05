@@ -3,14 +3,9 @@ import { useState } from "react";
 
 import Header from "~/components/layout/header/Header";
 import Sidebar from "~/components/layout/Sidebar";
-import { PreloadProvider } from "~/context/PreloadContext";
-import {useRouter} from 'next/router'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const location = useRouter();
-  const { pathname } = location;
 
   return (
     <>
@@ -36,9 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
         {/**/}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <PreloadProvider>
           <div id="skip-nav" >{children}</div>
-        </PreloadProvider>
         <span className="mt-12 mb-8 bottom-0 h-4 self-center text-gray-800/30">
           © Yuri Achermann {new Date().getFullYear()}
         </span>

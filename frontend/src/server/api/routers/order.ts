@@ -5,25 +5,23 @@ export const orderRouter = createTRPCRouter({
   create: publicProcedure
     .input(
       z.object({
+        orderID: z.string(),
         orderUser: z.string(),
         orderFood: z.string(),
         orderCity: z.string(),
-        orderRating: z.number(),
-        orderReview: z.string(),
-        orderLat: z.number(),
-        orderLng: z.number(),
+        // orderRating: z.number(),
+        // orderReview: z.string(),
       })
     )
     .mutation(async ({ ctx: { prisma }, input }) => {
       await prisma.order.create({
         data: {
+          order_id: input?.orderID,
           order_user: input?.orderUser,
           order_food: input?.orderFood,
           order_city: input?.orderCity,
-          order_rating: input?.orderRating,
-          order_review: input?.orderReview,
-          order_lat: input?.orderLat,
-          order_lng: input?.orderLng,
+          // order_rating: input?.orderRating,
+          // order_review: input?.orderReview,
         },
       })
       return prisma.order.findMany()

@@ -19,13 +19,13 @@ model Order {
   order_id         String    @unique @default(cuid())
   order_created_at DateTime  @default(now()) @db.Timestamp
   order_updated_at DateTime? @updatedAt @db.Timestamp
-  order_user       String    @default("user")
-  order_food       String    @default("food")
-  order_city       String    @default("city")
-  order_rating     Int       @default(0)
-  order_review     String    @default("review")
-  order_lat        Float     @default(0)
-  order_lng        Float     @default(0)
+  order_user       String?   @default("user")
+  order_food       String?   @default("food")
+  order_city       String?   @default("city")
+  order_rating     Int?      @default(0)
+  order_review     String?   @default("review")
+  order_lat        Float?    @default(0)
+  order_lng        Float?    @default(0)
 }
 
 // Necessary for Next auth

@@ -48,7 +48,7 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `https://api.yuriachermann.com:8080/upload?street_image_id=${streetImageID}`,
+          `http://172.174.255.171:8080/upload?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {
@@ -187,7 +187,6 @@ function Flying() {
               ) : processedImage ? (
                 <Image
                   src={`https://tooldetectivestorageacc.blob.core.windows.net/intel-hackathon/street_image/${streetImageID}.jpg?${sasToken}`}
-                  // src={'https://tooldetectivestorageacc.blob.core.windows.net/intel-hackathon/street_image/a50y9avzn6kdeshmyl3xgmrc.jpg?sp=r&st=2023-09-03T20:18:36Z&se=2023-09-04T04:18:36Z&spr=https&sv=2022-11-02&sr=b&sig=fExhrQCBx5WYQvvCNIU%2B%2BJerbYD5Nu%2FaRMP5bluxgkY%3D'}
                   alt="Preview"
                   width={450}
                   height={300}

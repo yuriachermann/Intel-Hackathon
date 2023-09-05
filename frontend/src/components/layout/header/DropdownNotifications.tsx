@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import {api} from '~/utils/api'
+import { format } from 'date-fns';
+import Link from 'next/link'
 
 function DropdownNotifications() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -32,6 +35,8 @@ function DropdownNotifications() {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  const queryOrders = api.order.read.useQuery().data?.slice(-7)
 
   return (
     <div className="relative inline-flex">
@@ -79,57 +84,33 @@ function DropdownNotifications() {
               </div>
               {/*TODO: place all the orders here*/}
               <ul>
-                {}
-                <li className="border-b border-slate-200 last:border-0">
-                  <div className="block px-4 py-2 hover:bg-slate-500">
-                    <div>
+                {queryOrders?.map((order)=>(
+                  <li key={order.order_id} className="border-b border-slate-200 last:border-0">
+                    <Link className="block px-4 py-2 hover:bg-slate-500" href="/orders">
+                      <div>
                       <span className="mb-2 block text-sm text-slate-200">
                         📣{" "}
                         <span className="font-medium text-slate-200">
-                          Edit your information in a swipe
+                          {order.order_user} ordered a {order.order_food} in {order.order_city}
                         </span>{" "}
-                        Sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim.
                       </span>
-                      <span className="block text-xs font-medium text-slate-200">
-                        Feb 12, 2021
+                        <span className="block text-xs font-medium text-slate-200">
+                        {format(order.order_created_at, 'd MMM - (HH:mm)')}
                       </span>
-                    </div>
-                  </div>
-                </li>
+                      </div>
+                    </Link>
+                  </li>
+                ))}
                 <li className="border-b border-slate-200 last:border-0">
-                  <div className="block px-4 py-2 hover:bg-slate-500">
+                  <Link className="block px-4 py-2 hover:bg-slate-500" href="/orders">
                     <div>
                       <span className="mb-2 block text-sm text-slate-200">
-                        📣{" "}
                         <span className="font-medium text-slate-200">
-                          Edit your information in a swipe
+                          See more...
                         </span>{" "}
-                        Sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim.
-                      </span>
-                      <span className="block text-xs font-medium text-slate-200">
-                        Feb 9, 2021
                       </span>
                     </div>
-                  </div>
-                </li>
-                <li className="border-b border-slate-200 last:border-0">
-                  <div className="block px-4 py-2 hover:bg-slate-500">
-                    <div>
-                      <span className="mb-2 block text-sm text-slate-200">
-                        🚀
-                        <span className="font-medium text-slate-200">
-                          Say goodbye to paper receipts!
-                        </span>{" "}
-                        Sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim.
-                      </span>
-                      <span className="block text-xs font-medium text-slate-200">
-                        Jan 24, 2020
-                      </span>
-                    </div>
-                  </div>
+                  </Link>
                 </li>
               </ul>
             </div>

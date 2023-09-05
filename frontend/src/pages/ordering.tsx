@@ -2,7 +2,12 @@ import React from "react";
 import "aos/dist/aos.css";
 import Layout from "../components/layout/Layout";
 import { Formik, Form, Field } from "formik";
-import axios from 'axios';
+import axios from "axios";
+import { api } from "~/utils/api";
+import { QueryClient } from "@tanstack/query-core";
+import { createId } from "@paralleldrive/cuid2";
+
+const queryClient = new QueryClient();
 
 interface MyFormValues {
   firstName: string;
@@ -10,10 +15,7 @@ interface MyFormValues {
   restriction: string;
   mealTime: string;
   cuisinePreference: string;
-  mood: string;
   allergies: string;
-  priceRange: string;
-  currentWeather: string;
 }
 
 function Ordering() {
@@ -23,10 +25,7 @@ function Ordering() {
     restriction: "",
     mealTime: "",
     cuisinePreference: "",
-    mood: "",
     allergies: "",
-    priceRange: "",
-    currentWeather: "",
   };
 
   const foodIputs = [
@@ -48,7 +47,7 @@ function Ordering() {
     },
     {
       value: "spiciness",
-      label: "Spice Level",
+      label: "Spiciness Level",
       options: ["Mild", "Medium", "Spicy"],
     },
     {
@@ -63,32 +62,69 @@ function Ordering() {
     },
   ];
 
-  async function getGPT3Response(prompt: string) {
-    const apiKey = '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';
+  const [city, setCity] = React.useState("");
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      }
-    };
-
-    const payload = {
-      prompt,
-      max_tokens: 100
-    };
+  const fetchLocation = async () => {
+    const apiURL = "https://ipgeolocation.abstractapi.com/v1/";
+    const apiKey = "afe9fb78a04a4f88a6fe754896ec88b2";
 
     try {
-      const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', payload, config);
-      return response.data.choices[0].text.trim();
-    } catch (error) {
-      console.error(error);
+      const response = await axios.get(apiURL, {
+        params: { api_key: apiKey },
+      });
+      if (response.data.city) {
+        setCity(response.data.city);
+      }
+    } catch (error: any) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        error.response.status === 429
+      ) {
+        console.error("Rate limit reached. Try again later.");
+      } else {
+        console.error("There was an error fetching the data:", error);
+      }
     }
-  }
+  };
 
-// Usage
-  const prompt = "Tell me a joke.";
-  getGPT3Response(prompt).then(response => console.log(response));
+  fetchLocation();
+  console.log(city);
+
+  const { mutateAsync: createOrder } = api.order.create.useMutation({
+    onSuccess: (data) => {
+      queryClient.setQueryData(["order.read"], data);
+    },
+    onError: () => {
+      console.log("error while creating order");
+    },
+  });
+
+  const utils = api.useContext();
+
+  const handleCreateOrder = ({
+    orderID,
+    user,
+    food,
+    city,
+  }: {
+    orderID: string;
+    user: string;
+    food: string;
+    city: string;
+  }) => {
+    // Continue with the existing mutation after the file has been uploaded
+    void createOrder({
+      orderID: orderID,
+      orderUser: user,
+      orderFood: food,
+      orderCity: city,
+    }).then(() => utils.invalidate());
+    close();
+  };
+
+  const promptText = "ANSWER JUST WITH THE NAME OF ONE DISH CONSIDERING THE CONDITIONS (If there are no conditions just give any random dish name, but just say the name and nothing more)"
 
   return (
     <Layout>
@@ -96,10 +132,52 @@ function Ordering() {
         <Formik
           initialValues={initialValues}
           onSubmit={async (values, actions) => {
-            console.log({ values, actions });
-            await new Promise((r) => setTimeout(r, 500));
-            alert(JSON.stringify(values, null, 2));
+            // console.log({ values, actions });
+
+            fetchLocation();
+            console.log(city);
+            // alert(JSON.stringify(values, null, 2));
             actions.setSubmitting(false);
+            axios
+              .request({
+                method: "post",
+                maxBodyLength: Infinity,
+                url: "https://api.openai.com/v1/chat/completions",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization:
+                    "Bearer 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",
+                },
+                data: JSON.stringify({
+                  model: "gpt-3.5-turbo",
+                  messages: [
+                    {
+                      role: "user",
+                      content: `CONDITIONS: [Meal Time=${values.mealTime}, Cuisine Preference=${values.cuisinePreference}, Spiciness Level=${values.spiciness}, Dietary Restrictions=${values.restriction}, Allergies=${values.allergies}] ${promptText}`,
+                    },
+                  ],
+                }),
+              })
+              .then((response: any) => {
+                console.log(
+                  JSON.stringify(response.data.choices[0].message.content)
+                );
+                const food = JSON.stringify(
+                  response.data.choices[0].message.content
+                ).replace(/^"|"$/g, "");
+                const orderID = createId();
+                handleCreateOrder({
+                  orderID: orderID,
+                  user: values.firstName,
+                  food: food,
+                  city: city,
+                });
+                window.location.href = `/logistics?dish=${food}&user=${values.firstName}&orderID=${orderID}`;
+              })
+              .catch((error: any) => {
+                console.log(error);
+              });
           }}
         >
           {() => (
@@ -107,7 +185,7 @@ function Ordering() {
               <div className="ml-12 flex justify-between">
                 <label
                   htmlFor="firstName"
-                  className="basis-1/2 block pr-4 font-bold text-gray-500"
+                  className="block basis-1/2 pr-4 font-bold text-gray-500"
                 >
                   First Name
                 </label>
@@ -115,7 +193,7 @@ function Ordering() {
                   id="firstName"
                   name="firstName"
                   placeholder="Write your first name"
-                  className="basis-1/2 mr-40 block w-40 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:w-96"
+                  className="mr-40 block w-40 basis-1/2 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:w-96"
                 />
               </div>
               {foodIputs.map((input) => (

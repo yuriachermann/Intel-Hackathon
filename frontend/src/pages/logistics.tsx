@@ -49,7 +49,6 @@ function Logistics() {
     fetchDataAndFly();
   }, [city]);
 
-
   return (
     <Layout>
       <main className="grow">
