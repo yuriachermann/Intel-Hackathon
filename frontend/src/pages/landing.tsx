@@ -1,10 +1,11 @@
-import React, {useCallback, useEffect} from 'react'
+import React, { useCallback, useEffect } from "react";
 import "aos/dist/aos.css";
 import Layout from "../components/layout/Layout";
-import Image from 'next/image'
-import Webcam from 'react-webcam'
-import {createId} from '@paralleldrive/cuid2'
-import axios from 'axios/index'
+import axios from "axios";
+import Image from "next/image";
+import Webcam from "react-webcam";
+
+import { createId } from "@paralleldrive/cuid2";
 
 function Landing() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
