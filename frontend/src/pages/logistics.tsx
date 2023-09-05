@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import "aos/dist/aos.css";
 import Layout from "../components/layout/Layout";
-import type { MapRef } from 'react-map-gl';
-import Map from 'react-map-gl';
+import type { MapRef } from "react-map-gl";
+import Map from "react-map-gl";
 
 function Logistics() {
   const [city, setCity] = React.useState("");
@@ -26,7 +26,12 @@ function Logistics() {
         setLon(response.data.longitude);
       }
     } catch (error: any) {
-      if (typeof error === 'object' && error !== null && 'response' in error && error.response.status === 429) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        error.response.status === 429
+      ) {
         console.error("Rate limit reached. Try again later.");
       } else {
         console.error("There was an error fetching the data:", error);
@@ -53,22 +58,21 @@ function Logistics() {
     <Layout>
       <main className="grow">
         <div className="flex items-center justify-center">
-          <div className="basis-1/2 flex flex-col items-center justify-center">
+          <div className="flex basis-1/2 flex-col items-center justify-center"></div>
+          <div className="h-[75vh] w-full basis-1/2">
+            <Map
+              ref={mapRef}
+              initialViewState={{
+                latitude: 0,
+                longitude: 0,
+                zoom: 1,
+                bearing: 0,
+                pitch: 0,
+              }}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+            ></Map>
           </div>
-        <div className="basis-1/2 h-[75vh] w-full">
-          <Map
-            ref={mapRef}
-            initialViewState={{
-              latitude: 0,
-              longitude: 0,
-              zoom: 1,
-              bearing: 0,
-              pitch: 0,
-            }}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
-          ></Map>
-        </div>
         </div>
       </main>
     </Layout>
