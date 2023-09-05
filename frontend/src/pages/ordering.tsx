@@ -154,8 +154,7 @@ function Ordering() {
                   headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
-                    Authorization:
-                      `Bearer ${process.env.NEXT_PUBLIC_GPT_TOKEN}`,
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_GPT_TOKEN}`,
                   },
                   data: JSON.stringify({
                     model: "gpt-3.5-turbo",
@@ -237,17 +236,15 @@ function Ordering() {
                   </div>
                 </div>
               ))}
-              <div className="mt-20">
-                <button
-                  type="submit"
-                  className="btn group w-full bg-gradient-to-t from-orange-800 to-orange-700 text-white shadow-lg hover:to-orange-500"
-                >
-                  Drone Logistics
-                  <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
-                    -&gt;
-                  </span>
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="btn group mt-20 w-full bg-gradient-to-t from-orange-800 to-orange-700 text-white shadow-lg hover:to-orange-500"
+              >
+                Drone Logistics
+                <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
+                  -&gt;
+                </span>
+              </button>
             </Form>
           )}
         </Formik>

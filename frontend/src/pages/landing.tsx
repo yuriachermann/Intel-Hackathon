@@ -6,6 +6,7 @@ import Image from "next/image";
 import Webcam from "react-webcam";
 
 import { createId } from "@paralleldrive/cuid2";
+import Link from 'next/link'
 
 function Landing() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
@@ -179,6 +180,15 @@ function Landing() {
               >
                 Detect
               </button>
+              <Link
+                href={"/delivery?"}
+                className="rounded-lg  px-10 py-2.5 text-sm font-medium  group w-full bg-orange-800 text-white shadow-lg hover:to-orange-500"
+              >
+                Complete Delivery
+                <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
+                  -&gt;
+                </span>
+              </Link>
             </div>
             <div className="max-h-sm max-w-sm border-2 border-slate-800">
               {loading ? (

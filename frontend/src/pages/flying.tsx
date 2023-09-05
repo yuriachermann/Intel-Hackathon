@@ -6,6 +6,7 @@ import Image from "next/image";
 import Webcam from "react-webcam";
 
 import { createId } from "@paralleldrive/cuid2";
+import Link from 'next/link'
 
 function Flying() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
@@ -45,7 +46,7 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `http://172.174.255.171:8080/upload?street_image_id=${streetImageID}`,
+          `https://api.yuriachermann.com:8080/upload?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {
@@ -179,6 +180,15 @@ function Flying() {
               >
                 Detect
               </button>
+              <Link
+                href={"/landing?"}
+                className="rounded-lg  px-10 py-2.5 text-sm font-medium  group w-full bg-orange-800 text-white shadow-lg hover:to-orange-500"
+              >
+                Drone Landing
+                <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
+                  -&gt;
+                </span>
+              </Link>
             </div>
             <div className="max-h-sm max-w-sm border-2 border-slate-800">
               {loading ? (
