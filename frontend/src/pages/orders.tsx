@@ -18,7 +18,7 @@ function Orders() {
             >
               <div className="block rounded-lg bg-[#3f3f3f] px-4 py-2 hover:bg-slate-500">
                 <div>
-                  <div className="grid grid-cols-7 grid-rows-1 ">
+                  <div className="grid grid-cols-6 grid-rows-1 ">
                     <span className="font-medium text-slate-200">
                       📣{order.order_user}
                     </span>

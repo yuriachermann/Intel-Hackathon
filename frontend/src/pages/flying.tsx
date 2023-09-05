@@ -7,9 +7,6 @@ import Webcam from "react-webcam";
 
 import { createId } from "@paralleldrive/cuid2";
 
-const sasToken =
-  "sp=r&st=2023-09-03T23:04:08Z&se=2024-09-04T07:04:08Z&spr=https&sv=2022-11-02&sr=c&sig=ikDJXuvnWGekxgKQOzg6V971vcmTuafMJwbkD%2F%2FBIb0%3D";
-
 function Flying() {
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [webcamImage, setWebcamImage] = React.useState<File | null>(null);
@@ -91,14 +88,16 @@ function Flying() {
     <Layout>
       <main className="grow">
         <div>
-          <div className="m-0 text-[17px] font-bold text-mauve12">
-            Upload Image
+          <div className="ml-40 mt-6">
+            <div className="m-0 text-[17px] font-bold text-mauve12">
+              Upload Image
+            </div>
+            <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
+              Make sure to fill in all the fields
+            </div>
           </div>
-          <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
-            Make sure to fill in all the fields
-          </div>
-          <div className="mx-10 mt-1 flex flex-col items-center justify-around p-6 md:flex-row">
-            <div className="max-h-sm mt-[25px] max-w-sm border-2 border-slate-800">
+          <div className="mx-10 flex flex-col items-center justify-around p-6 md:flex-row">
+            <div className="max-h-sm max-w-sm border-2 border-slate-800">
               {selectedFile ? (
                 <Image
                   src={URL.createObjectURL(selectedFile)}
@@ -181,12 +180,12 @@ function Flying() {
                 Detect
               </button>
             </div>
-            <div className="max-h-sm mt-[25px] max-w-sm border-2 border-slate-800">
+            <div className="max-h-sm max-w-sm border-2 border-slate-800">
               {loading ? (
                 <div>Loading...</div>
               ) : processedImage ? (
                 <Image
-                  src={`https://tooldetectivestorageacc.blob.core.windows.net/intel-hackathon/street_image/${streetImageID}.jpg?${sasToken}`}
+                  src={`https://tooldetectivestorageacc.blob.core.windows.net/intel-hackathon/street_image/${streetImageID}.jpg?${process.env.NEXT_PUBLIC_AZURE_SAS_TOKEN}`}
                   alt="Preview"
                   width={450}
                   height={300}

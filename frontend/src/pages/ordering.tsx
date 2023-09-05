@@ -124,68 +124,77 @@ function Ordering() {
     close();
   };
 
-  const promptText = "ANSWER JUST WITH THE NAME OF ONE DISH CONSIDERING THE CONDITIONS (If there are no conditions just give any random dish name, but just say the name and nothing more)"
+  const promptText =
+    "ANSWER JUST WITH THE NAME OF ONE DISH CONSIDERING THE CONDITIONS (If there are no conditions just give any random dish name, but just say the name and nothing more)";
 
   return (
     <Layout>
       <main className="grow">
+        <div className="ml-40 mt-6">
+          <div className="m-0 text-[17px] font-bold text-mauve12">
+            Upload Image
+          </div>
+          <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
+            Make sure to fill in all the fields
+          </div>
+        </div>
         <Formik
           initialValues={initialValues}
           onSubmit={async (values, actions) => {
-            // console.log({ values, actions });
-
             fetchLocation();
-            console.log(city);
-            // alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-            axios
-              .request({
-                method: "post",
-                maxBodyLength: Infinity,
-                url: "https://api.openai.com/v1/chat/completions",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                  Authorization:
-                    "Bearer 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",
-                },
-                data: JSON.stringify({
-                  model: "gpt-3.5-turbo",
-                  messages: [
-                    {
-                      role: "user",
-                      content: `CONDITIONS: [Meal Time=${values.mealTime}, Cuisine Preference=${values.cuisinePreference}, Spiciness Level=${values.spiciness}, Dietary Restrictions=${values.restriction}, Allergies=${values.allergies}] ${promptText}`,
-                    },
-                  ],
-                }),
-              })
-              .then((response: any) => {
-                console.log(
-                  JSON.stringify(response.data.choices[0].message.content)
-                );
-                const food = JSON.stringify(
-                  response.data.choices[0].message.content
-                ).replace(/^"|"$/g, "");
-                const orderID = createId();
-                handleCreateOrder({
-                  orderID: orderID,
-                  user: values.firstName,
-                  food: food,
-                  city: city,
+            if (values.firstName == "") {
+              alert("Provide at least your name");
+            } else {
+              actions.setSubmitting(false);
+              axios
+                .request({
+                  method: "post",
+                  maxBodyLength: Infinity,
+                  url: "https://api.openai.com/v1/chat/completions",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization:
+                      `Bearer ${process.env.NEXT_PUBLIC_GPT_TOKEN}`,
+                  },
+                  data: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    messages: [
+                      {
+                        role: "user",
+                        content: `CONDITIONS: [Meal Time=${values.mealTime}, Cuisine Preference=${values.cuisinePreference}, Spiciness Level=${values.spiciness}, Dietary Restrictions=${values.restriction}, Allergies=${values.allergies}] ${promptText}`,
+                      },
+                    ],
+                  }),
+                })
+                .then((response: any) => {
+                  console.log(
+                    JSON.stringify(response.data.choices[0].message.content)
+                  );
+                  const food = JSON.stringify(
+                    response.data.choices[0].message.content
+                  ).replace(/^"|"$/g, "");
+                  const orderID = createId();
+                  handleCreateOrder({
+                    orderID: orderID,
+                    user: values.firstName,
+                    food: food,
+                    city: city,
+                  });
+                  window.location.href = `/logistics?dish=${food}&user=${values.firstName}&orderID=${orderID}`;
+                })
+                .catch((error: any) => {
+                  console.log(error);
                 });
-                window.location.href = `/logistics?dish=${food}&user=${values.firstName}&orderID=${orderID}`;
-              })
-              .catch((error: any) => {
-                console.log(error);
-              });
+            }
           }}
         >
           {() => (
-            <Form className="md:mx-32">
+            <Form className="rounded-2xl bg-[#3f3f3f] p-12 md:mx-32">
               <div className="ml-12 flex justify-between">
                 <label
                   htmlFor="firstName"
-                  className="block basis-1/2 pr-4 font-bold text-gray-500"
+                  className="block basis-1/2 pr-4 font-bold text-gray-200"
                 >
                   First Name
                 </label>
@@ -202,7 +211,7 @@ function Ordering() {
                   <div className="ml-12 flex justify-between">
                     <div
                       id="my-radio-group"
-                      className="block basis-1/2 pr-4 font-bold text-gray-500"
+                      className="block basis-1/2 pr-4 font-bold text-gray-200"
                     >
                       {input.label}
                     </div>
@@ -214,7 +223,7 @@ function Ordering() {
                       {input.options.map((option) => (
                         <label
                           key={option}
-                          className="pr-4 font-bold text-gray-500"
+                          className="pr-4 font-bold text-gray-200"
                         >
                           <Field
                             type="radio"
