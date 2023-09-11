@@ -1,7 +1,7 @@
 FROM public.ecr.aws/docker/library/python:3.8
 
 # copy assets over to image
-COPY /src /logistics_demand_forecasting
+COPY /app /logistics_demand_forecasting
 
 # set the working directory
 WORKDIR /logistics_demand_forecasting
@@ -15,4 +15,4 @@ ENV PATH=.local/bin:$PATH
 # exposing endpoint port
 EXPOSE 5001
 
-ENTRYPOINT ["python", "serve.py"]
+ENTRYPOINT ["python", "main.py"]

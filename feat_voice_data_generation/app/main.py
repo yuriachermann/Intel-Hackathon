@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient, ContentSettings
 from fastapi import FastAPI, Query, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
-from detect import main as detect_func
+from app.detect import main as detect_func
 from dotenv import load_dotenv
 
 app = FastAPI(title="Flying API", version="0.1.0")

@@ -174,7 +174,7 @@ optional arguments:
 **Command to run training**
 > **Note**:Make sure that you are running this command from 'src' folder
 ```sh
-cd src
+cd app
 python training.py -d ../data/Aerial_Semantic_Segmentation_Drone_Dataset/dataset/semantic_drone_dataset   -e 10  -m ./model -o 0
 
 ```
@@ -537,7 +537,7 @@ optional arguments:
 
 **Note**:Activate Intel® Environment before running & Make sure that you are running this command from 'src/intel_neural_compressor' folder 
 ```sh
-cd src/intel_neural_compressor
+cd app/intel_neural_compressor
 python neural_compressor_conversion.py -d ../../data/Aerial_Semantic_Segmentation_Drone_Dataset/dataset/semantic_drone_dataset -m  ../model/intel/frozen_graph.pb -o  ../model/inc_compressed_model/output
 
 ```
@@ -561,7 +561,7 @@ optional arguments:
 ```
 *Command to run inference for realtime `(batchsize =1)`*
 ```sh
-cd <installation directory>/src
+cd <installation directory>/app
  python run_inference.py -m ./model/inc_compressed_model/output.pb -d ../data/Aerial_Semantic_Segmentation_Drone_Dataset/dataset/semantic_drone_dataset  -b 1
 ```
 > Use `-b` to test with different batch size (e.g. `-b 10`)

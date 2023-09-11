@@ -66,10 +66,10 @@ if str(ROOT) not in sys.path:
 if platform.system() != "Windows":
     ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
-from app.models.experimental import attempt_load
-from app.models.yolo import ClassificationModel, Detect, DetectionModel, SegmentationModel
-from app.utils.dataloaders import LoadImages
-from app.utils.general import (
+from models.experimental import attempt_load
+from models.yolo import ClassificationModel, Detect, DetectionModel, SegmentationModel
+from utils.dataloaders import LoadImages
+from utils.general import (
     LOGGER,
     Profile,
     check_dataset,
