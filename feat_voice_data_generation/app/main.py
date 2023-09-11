@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient, ContentSettings
 from fastapi import FastAPI, Query, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
-from app.detect import main as detect_func
+from inference import main as generate_func
 from dotenv import load_dotenv
 
 app = FastAPI(title="Flying API", version="0.1.0")
@@ -43,14 +43,15 @@ def healthcheck():
 
 @app.post("/predict")
 async def predict(
-    street_image_id: str = Query(description="Street Image ID"),
-    file: UploadFile = File(...),
+    delivery_voice_id: str = Query(description="delivery_voice_id"),
+    user: str = Query(description="user"),
+    food: str = Query(description="food"),
 ):
     """Prediction Endpoint
     This endpoint process raw data and detects the objects in the image provided
     
     Args:
-        street_image_id (str): Street Image ID
+        delivery_voice_id (str): delivery_voice_id
         file (UploadFile): File to upload
     """
 
@@ -64,34 +65,21 @@ async def predict(
         container=container_name
     )
 
-    print("#1: Connecting to raw images container")
+    savepath = generate_func(f"Hi, {user} your {food} has arrived!")
 
-    print("#2: Start Processing Image")
-
-    image = Image.open(BytesIO(await file.read()))
-    image = np.array(image)
-    image = detect_func(image=image)
-    image = Image.fromarray(image, "RGB")
-
-    print("#2: End Processing Image")
-
-    processed_image_byte_stream = io.BytesIO()
-    image.save(processed_image_byte_stream, format="JPEG")
-    processed_image_byte_stream.seek(0)
-
-    blob = f"street_image/{street_image_id}.jpg"
+    blob = f"delivery_voice/{delivery_voice_id}.wav"
     # Upload the image
     container_client.upload_blob(
         name=blob,
-        data=processed_image_byte_stream,
+        data=savepath,
         overwrite=True,
-        content_settings=ContentSettings(content_type="image/jpeg"),
+        content_settings=ContentSettings(content_type="audio/wav"),
     )
 
-    print("#2: Loading the image")
+    print("#2: Loading the audio file")
 
     return {"url": 200}
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=5002)
+    uvicorn.run(app, host="localhost", port=5004)

@@ -19,7 +19,7 @@ from utils.display import simple_table
 from utils.files import get_files
 
 
-def main():
+def main(text):
     """
         Main Function
     """
@@ -51,11 +51,12 @@ def main():
     parser.set_defaults(input_text=None)
 
     batched = args.batched
-    input_text = args.input_text
+    input_text = text
     intel_flag = args.intel
     tts_weights = args.tts_weights
     voc_weights = args.voc_weights
     save_path = args.save_path
+
 
     # creating the save path directory to store the output generated audio file if it does not exist
     os.makedirs(save_path, exist_ok=True)
@@ -109,6 +110,8 @@ def main():
     run_inference(inputs, tts_model, voc_model, batched, wr_up, save_path)
 
     print('\n\nDone.\n')
+
+    return save_path
 
 
 if __name__ == "__main__":

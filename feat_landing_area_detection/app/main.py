@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient, ContentSettings
 from fastapi import FastAPI, Query, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
-from detect import main as detect_func
+from run_inference import detect as detect_func
 from dotenv import load_dotenv
 
 app = FastAPI(title="Flying API", version="0.1.0")
@@ -43,14 +43,14 @@ def healthcheck():
 
 @app.post("/predict")
 async def predict(
-    street_image_id: str = Query(description="Street Image ID"),
+    landing_image_id: str = Query(description="landing Image ID"),
     file: UploadFile = File(...),
 ):
     """Prediction Endpoint
     This endpoint process raw data and detects the objects in the image provided
     
     Args:
-        street_image_id (str): Street Image ID
+        landing_image_id (str): landing Image ID
         file (UploadFile): File to upload
     """
 
@@ -79,7 +79,7 @@ async def predict(
     image.save(processed_image_byte_stream, format="JPEG")
     processed_image_byte_stream.seek(0)
 
-    blob = f"street_image/{street_image_id}.jpg"
+    blob = f"landing_image/{landing_image_id}.jpg"
     # Upload the image
     container_client.upload_blob(
         name=blob,

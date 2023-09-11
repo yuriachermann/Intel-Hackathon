@@ -162,6 +162,70 @@ class Dataset:
         return len(self.test_images)
 
 
+def detect(image):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m',
+                        '--modelpath',
+                        type=str,
+                        required=False,
+                        default='./frozen_graph/frozen_graph.pb',
+                        help='provide frozen Model path ".pb" file...users can also use INC INT8 quantized model here')
+    parser.add_argument('-d',
+                        '--data_path',
+                        type=str,
+                        required=False,
+                        default='Aerial_Semantic_Segmentation_Drone_Dataset/dataset/semantic_drone_dataset/',
+                        help='Absolute path to the dataset folder containing '
+                             '"original_images" and "label_images_semantic" folders')
+    parser.add_argument('-b',
+                        '--batchsize',
+                        type=str,
+                        required=False,
+                        default=1,
+                        help='batchsize used for inference')
+
+    FLAGS = parser.parse_args()
+    model_path = FLAGS.modelpath
+    data_path = FLAGS.data_path
+    batchsize = int(FLAGS.batchsize)
+
+
+    dataset = Dataset(data_path, batch_size=batchsize)
+
+    # Load frozen graph using TensorFlow 1.x functions
+    with tf.Graph().as_default() as graph:
+        with tf.compat.v1.Session() as sess:
+            # Load the graph in graph_def
+            print("load graph")
+            with tf.io.gfile.GFile(model_path, "rb") as f:
+                graph_def = tf.compat.v1.GraphDef()
+                sess.graph.as_default()
+                tf.import_graph_def(graph_def, input_map=None,
+                                    return_elements=None,
+                                    name="",
+                                    op_dict=None,
+                                    producer_op_list=None)
+                l_input = graph.get_tensor_by_name('input_1:0')  # Input Tensor
+                l_output = graph.get_tensor_by_name('Identity:0')  # Output Tensor
+                # initialize_all_variables
+                tf.compat.v1.global_variables_initializer()
+
+                # Model warm up adjustment process for the model to reach an optimal state
+                print("Model warmup initiated ")
+                for i in range(5):
+                    (images, labels) = next(iter(dataset))
+                    Session_out = sess.run(l_output, feed_dict={l_input: images})
+                print("Model warm up completed for this inference run")
+
+                # Run Kitty model on single image
+                (images, labels) = next(iter(dataset))
+                # images = np.expand_dims(images, axis=0)
+                start_time = time.time()
+                Session_out = sess.run(l_output, feed_dict={l_input: images})
+                end_time = time.time() - start_time
+                print("Time Taken for model inference in seconds ---> ", end_time)
+
+
 # Define the command line arguments to input the Hyperparameters - batchsize & Learning Rate
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
