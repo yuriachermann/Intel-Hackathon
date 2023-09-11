@@ -79,7 +79,14 @@ Generate a Secret on the terminal or access https://generate-secret.vercel.app/3
 openssl rand -base64 32
 ```
 
-Create the file `.env` using `.env.template`
+Create the file `.env` using `.env.example` (and ask for the env variables)
+
+```sh
+copy .env.example .env
+```
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

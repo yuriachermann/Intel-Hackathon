@@ -37,9 +37,7 @@ function Home() {
               data-aos="zoom-in"
               data-aos-delay="600"
             />
-            <div
-              className="z-10 h-96 w-96 self-center"
-            >
+            <div className="z-10 h-96 w-96 self-center">
               <Logo fov={15} />
             </div>
             <Image

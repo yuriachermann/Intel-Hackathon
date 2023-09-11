@@ -135,7 +135,8 @@ function Ordering() {
             Place order
           </div>
           <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
-            Here you will provide your name and food preferences and we will select a surprise meal for you based on that
+            Here you will provide your name and food preferences and we will
+            select a surprise meal for you based on that
           </div>
         </div>
         <Formik
@@ -195,12 +196,12 @@ function Ordering() {
                   htmlFor="firstName"
                   className="block basis-1/2 pr-4 font-bold text-gray-200"
                 >
-                  First Name
+                  Name
                 </label>
                 <Field
                   id="firstName"
                   name="firstName"
-                  placeholder="Write your first name"
+                  placeholder="Input your name"
                   className="mr-40 block w-40 basis-1/2 rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 md:w-96"
                 />
               </div>
@@ -240,7 +241,7 @@ function Ordering() {
                 type="submit"
                 className="btn group mt-20 w-full bg-gradient-to-t from-orange-800 to-orange-700 text-white shadow-lg hover:to-orange-500"
               >
-                Drone Logistics
+                Place order
                 <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
                   -&gt;
                 </span>

@@ -6,9 +6,23 @@ import Image from "next/image";
 import Webcam from "react-webcam";
 
 import { createId } from "@paralleldrive/cuid2";
-import Link from 'next/link'
+import { useRouter } from "next/router";
 
 function Landing() {
+  const router = useRouter();
+  const routeUser: string | undefined = Array.isArray(router.query.user)
+    ? router.query.user[0]
+    : router.query.user;
+  const routeFood: string | undefined = Array.isArray(router.query.dish)
+    ? router.query.dish[0]
+    : router.query.dish;
+  const routeOrderID: string | undefined = Array.isArray(router.query.orderID)
+    ? router.query.orderID[0]
+    : router.query.orderID;
+  const routeCity: string | undefined = Array.isArray(router.query.city)
+    ? router.query.city[0]
+    : router.query.city;
+
   const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
   const [webcamImage, setWebcamImage] = React.useState<File | null>(null);
   const [processedImage, setProcessedImage] = React.useState<File | null>(null);
@@ -46,11 +60,11 @@ function Landing() {
 
       try {
         const response = await axios.post(
-          `http://172.174.255.171:8080/upload?landing_image_id=${landingImageID}`,
+          `http://172.174.255.171:5003/upload?landing_image_id=${landingImageID}`,
           formData,
           {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
             },
           }
         );
@@ -91,10 +105,10 @@ function Landing() {
         <div>
           <div className="ml-40 mt-6">
             <div className="m-0 text-[17px] font-bold text-mauve12">
-              Upload Image
+              Landing
             </div>
             <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
-              Make sure to fill in all the fields
+              Find the perfect landing spot
             </div>
           </div>
           <div className="mx-10 flex flex-col items-center justify-around p-6 md:flex-row">
@@ -138,13 +152,13 @@ function Landing() {
             </div>
             <div className="flex flex-col justify-center gap-6 p-6">
               <button
-                className="inline-flex h-[35px] items-center justify-center rounded-[4px] bg-violet4 px-[15px] font-medium leading-none text-violet11 hover:bg-violet5 focus:shadow-[0_0_0_2px] focus:shadow-violet7 focus:outline-none"
+                className="btn group bg-gradient-to-t from-blackA11 to-blackA9 text-white shadow-lg hover:to-gray-800"
                 onClick={() => inputFileRef.current?.click()}
               >
                 Upload File (jpg)
               </button>
               <button
-                className="inline-flex h-[35px] items-center justify-center rounded-[4px] bg-violet4 px-[15px] font-medium leading-none text-violet11 hover:bg-violet5 focus:shadow-[0_0_0_2px] focus:shadow-violet7 focus:outline-none"
+                className="btn group bg-gradient-to-t from-blackA11 to-blackA9 text-white shadow-lg hover:to-gray-800"
                 onClick={() => {
                   if (selectedFile) {
                     setSelectedFile(null);
@@ -160,12 +174,12 @@ function Landing() {
                 {selectedFile
                   ? `Back to WebCam`
                   : webcamImage
-                    ? `Retake`
-                    : `Capture Image`}
+                  ? `Retake`
+                  : `Capture Image`}
               </button>
               <button
                 type="button"
-                className={`rounded-lg  px-10 py-2.5 text-sm font-medium text-white ${
+                className={`btn group text-white shadow-lg ${
                   selectedFile || webcamImage
                     ? "bg-green-800 hover:bg-green-700"
                     : "bg-gray-300"
@@ -180,19 +194,23 @@ function Landing() {
               >
                 Detect
               </button>
-              <Link
-                href={"/delivery?"}
-                className="rounded-lg  px-10 py-2.5 text-sm font-medium  group w-full bg-orange-800 text-white shadow-lg hover:to-orange-500"
+              <button
+                onClick={() => {
+                  window.location.href = `/delivery?dish=${routeFood}&user=${routeUser}&orderID=${routeOrderID}&city=${routeCity}`;
+                }}
+                className="btn group bg-gradient-to-t from-orange-800 to-orange-700 text-white shadow-lg hover:to-orange-500"
               >
                 Complete Delivery
                 <span className="ml-1 tracking-normal text-orange-200 transition-transform duration-150 ease-in-out group-hover:translate-x-0.5">
                   -&gt;
                 </span>
-              </Link>
+              </button>
             </div>
             <div className="max-h-sm max-w-sm border-2 border-slate-800">
               {loading ? (
-                <div>Loading...</div>
+                <div className="flex h-72 w-96 items-center justify-center text-gray-800">
+                  <div>Loading...</div>
+                </div>
               ) : processedImage ? (
                 <Image
                   src={`https://tooldetectivestorageacc.blob.core.windows.net/intel-hackathon/landing_image/${landingImageID}.jpg?${process.env.NEXT_PUBLIC_AZURE_SAS_TOKEN}`}
@@ -202,8 +220,8 @@ function Landing() {
                   className="h-80 w-full object-cover"
                 />
               ) : (
-                <div className="flex h-80 w-full text-gray-800">
-                  Select an image to process
+                <div className="flex h-72 w-96 items-center justify-center text-gray-800">
+                  <div>Select an image to process</div>
                 </div>
               )}
             </div>
