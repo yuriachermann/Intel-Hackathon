@@ -127,6 +127,7 @@ function Ordering() {
   const promptText =
     "ANSWER JUST WITH THE NAME OF ONE DISH CONSIDERING THE CONDITIONS (If there are no conditions just give any random dish name, but just say the name and nothing more)";
 
+
   return (
     <Layout>
       <main className="grow">
