@@ -12,16 +12,13 @@ from io import BytesIO
 from app.detect import main as detect_func
 from dotenv import load_dotenv
 
-app = FastAPI(title="Tool Detective API", version="0.1.0")
+app = FastAPI(title="Flying API", version="0.1.0")
 
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "http://localhost:8000",
-        "http://localhost:8080",
-        "https://intel-hackathon-yuriachermann.vercel.app",
         "*",
     ],
     allow_credentials=True,
@@ -33,22 +30,25 @@ app.add_middleware(
 load_dotenv()
 connect_str = os.environ.get("CONNECT_STR")
 
+print(connect_str)
+
 
 @app.get("/healthcheck")
 def healthcheck():
     """
     Healthcheck endpoint
     """
-    return {"CHECK": "Uvicorn server running"}
+    return {"CHECK": "Uvicorn server running" + connect_str}
 
 
-@app.post("/upload")
-async def upload(
+@app.post("/predict")
+async def predict(
     street_image_id: str = Query(description="Street Image ID"),
     file: UploadFile = File(...),
 ):
-    """
-    Uploads an image to file storage.
+    """Prediction Endpoint
+    This endpoint process raw data and detects the objects in the image provided
+    
     Args:
         street_image_id (str): Street Image ID
         file (UploadFile): File to upload
@@ -94,4 +94,4 @@ async def upload(
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8080)
+    uvicorn.run(app, host="localhost", port=5002)

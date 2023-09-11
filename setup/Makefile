@@ -56,20 +56,11 @@ configure-pills-mvtec:
 	cd ../../../ && \
 	rm pill.tar.xz
 
-launch-full: setup-store-full create-synthethic-data configure-pills-mvtec
-	docker-compose -f docker-compose-full.yaml -p full up
+launch: setup-store create-synthethic-data configure-pills-mvtec
+	docker-compose -f docker-compose.yaml -p full up
 
-launch-full-nodata:
-	docker-compose -f docker-compose-full.yaml -p full up
+launch-nodata:
+	docker-compose -f docker-compose.yaml -p full up
 
-launch-slim: setup-store-slim create-synthethic-data
-	docker-compose -f docker-compose-slim.yaml -p slim up
-
-launch-slim-nodata:
-	docker-compose -f docker-compose-slim.yaml -p slim up
-
-shutdown-full:
-	docker-compose -f docker-compose-full.yaml -p full down
-
-shutdown-slim:
-	docker-compose -f docker-compose-slim.yaml -p slim down
+shutdown:
+	docker-compose -f docker-compose.yaml -p full down

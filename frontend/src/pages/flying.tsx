@@ -46,7 +46,7 @@ function Flying() {
 
       try {
         const response = await axios.post(
-          `http://localhost:8080/upload?street_image_id=${streetImageID}`,
+          `http://localhost:5002/predict?street_image_id=${streetImageID}`,
           formData,
           {
             headers: {

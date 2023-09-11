@@ -132,10 +132,10 @@ function Ordering() {
       <main className="grow">
         <div className="ml-40 mt-6">
           <div className="m-0 text-[17px] font-bold text-mauve12">
-            Upload Image
+            Place order
           </div>
           <div className="mb-5 mt-[10px] text-[15px] leading-normal text-slate-700">
-            Make sure to fill in all the fields
+            Here you will provide your name and food preferences and we will select a surprise meal for you based on that
           </div>
         </div>
         <Formik

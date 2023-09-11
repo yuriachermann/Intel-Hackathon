@@ -1,0 +1,53 @@
+version: '3'
+services:
+
+  feat_logistics_demand_forecasting:
+    build:
+      context: ../feat_logistics_demand_forecasting/
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+    volumes:
+      - /home/ubuntu/AI-Hackathon/drone_delivery/store:/feat_logistics_demand_forecasting/store
+    restart: on-failure
+
+  feat_flying_object_detection:
+    build:
+      context: ../feat_flying_object_detection/
+      dockerfile: Dockerfile
+    ports:
+      - 5002:5002
+    shm_size: '20gb'
+    volumes:
+      - /home/ubuntu/AI-Hackathon/drone_delivery/store:/feat_flying_object_detection/store
+    restart: on-failure
+
+  # feat_landing_area_detection:
+  #   build:
+  #     context: ../feat_landing_area_detection/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5003:5003
+  #   volumes:
+  #     - /home/ubuntu/AI-Hackathon/drone_delivery/store:/feat_landing_area_detection/store
+  #   restart: on-failure
+
+  # feat_voice_data_generation:
+  #   build:
+  #     context: ../feat_voice_data_generation/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5004:5004
+  #   volumes:
+  #     - /home/yuriachermann/AI-Hackathon/drone_delivery/store:/feat_voice_data_generation/store
+  #   restart: on-failure
+
+  app_frontend:
+    build:
+      context: ../frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/yuriachermann/AI-Hackathon/drone_delivery/store:/app_frontend/store
+    restart: on-failure

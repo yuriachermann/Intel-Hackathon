@@ -271,10 +271,6 @@ def run(
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
 
-    print("im0", type(im0))
-    print("im0[0]", type(im0[0]))
-    print("im0[0][0]", type(im0[0][0]))
-    print("im0[0][0][0]", type(im0[0][0][0]))
     return im0
 
 

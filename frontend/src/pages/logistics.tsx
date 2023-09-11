@@ -14,7 +14,7 @@ function Logistics() {
 
   const fetchLocation = async () => {
     const apiURL = "https://ipgeolocation.abstractapi.com/v1/";
-    const apiKey = "afe9fb78a04a4f88a6fe754896ec88b2";
+    const apiKey = process.env.NEXT_PUBLIC_ABSTRACT_TOKEN;
 
     try {
       const response = await axios.get(apiURL, {
@@ -53,6 +53,33 @@ function Logistics() {
 
     fetchDataAndFly();
   }, [city]);
+
+  const handleDetect = async () => {
+
+    const DATA = {
+      keras_saved_model_dir: './store/models/feat_logistics_demand_forecasting/model.pb',
+      output_saved_dir: './store/models/feat_logistics_demand_forecasting/model.pb',
+      input_file: './store/datasets/feat_logistics_demand_forecasting/test.csv',
+      results_save_dir: './store/outputs/feat_logistics_demand_forecasting/',
+      window: 'demand forecaster window',
+      lag_size: 'demand forecaster lag window',
+      batch_size: 'demand forecaster batch',
+      num_iters: 'demand forecaster iterations'
+    };
+
+    try {
+      const response = await axios.post(
+        `http://localhost:5001/predict`,
+        DATA
+      );
+      console.log(response);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed running endpoint");
+    }
+  };
+
+  handleDetect();
 
   return (
     <Layout>
