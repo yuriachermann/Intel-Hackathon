@@ -4,7 +4,7 @@
 <br />
 <div align="center">
 
-<h1 align="center">Frontend</h1>
+<h1 align="center">Feature Flying Object Detection</h1>
 
 </div>
 
@@ -40,13 +40,9 @@
 
 ### Built With
 
-- [![Typescript][Typescript]][Typescript-url]
-- [![Node.js][Node.js]][Node-url]
-- [![React.js][React.js]][React-url]
-- [![Next.js][Next.js]][Next-url]
-- [![Prisma][Prisma]][Prisma-url]
-- [![tRPC][tRPC]][tRPC-url]
-- [![Axios][Axios]][Axios-url]
+- [![Python][Python]][Python-url]
+- [![FastAPI][FastAPI]][FastAPI-url]
+- [![TensorFlow][TensorFlow]][TensorFlow-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -58,29 +54,39 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-- npm
+- conda
   ```sh
-  npm install npm@latest -g
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh
   ```
 
 ### Installation
 
-Install NPM packages
+Create a Conda Environment
 
 ```sh
-npm install
+conda env create -f environment.yml
 ```
 
-Generate a Secret on the terminal or access https://generate-secret.vercel.app/32
+Activate the Conda Environment
 
 ```sh
-openssl rand -base64 32
+conda activate feat_flying_object_detection
 ```
 
-Create the file `.env` using `.env.example` (and ask for the env variables)
+Install Additional Requirements
+    
+```sh
+pip install -r requirements.txt
+```
+
+### Running
+
+Start the API
 
 ```sh
-copy .env.example .env
+uvicorn main:app --reload
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -97,17 +103,9 @@ Yuri Winche Achermann - [@YuriAchermann](https://twitter.com/YuriAchermann) - yu
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [product-screenshot]: images/screenshot.png
-[Typescript]: https://img.shields.io/badge/Typescript-000000?style=for-the-badge&logo=typescript
-[Typescript-url]: https://www.typescriptlang.org
-[Node.js]: https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=nodedotjs
-[Node-url]: https://nodejs.org/en/
-[React.js]: https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react
-[React-url]: https://reactjs.org/
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs
-[Next-url]: https://nextjs.org/
-[Prisma]: https://img.shields.io/badge/Prisma-000000?style=for-the-badge&logo=prisma
-[Prisma-url]: https://www.prisma.io
-[tRPC]: https://img.shields.io/badge/tRPC-000000?style=for-the-badge&logo=trpc
-[tRPC-url]: https://trpc.io
-[Axios]: https://img.shields.io/badge/Axios-000000?style=for-the-badge&logo=axios
-[Axios-url]: https://trpc.io
+[Python]: https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python
+[Python-url]: https://www.python.org
+[FastAPI]: https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi
+[FastAPI-url]: https://fastapi.tiangolo.com
+[TensorFlow]: https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=tensorflow
+[TensorFlow-url]: https://TensorFlow.org

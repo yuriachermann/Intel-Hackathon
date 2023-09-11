@@ -1,4 +1,3 @@
-import torch
 from PIL import Image
 import io
 import numpy as np
