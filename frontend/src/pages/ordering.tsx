@@ -148,7 +148,7 @@ function Ordering() {
               alert("Provide at least your name");
             } else {
               actions.setSubmitting(false);
-              axios
+              await axios
                 .request({
                   method: "post",
                   maxBodyLength: Infinity,
@@ -182,8 +182,10 @@ function Ordering() {
                     food: food,
                     city: city,
                   });
+                  setTimeout(() => {
                   window.location.href = `/logistics?dish=${food}&user=${values.firstName}&orderID=${orderID}`;
-                })
+                  }, 500);
+                  })
                 .catch((error: any) => {
                   console.log(error);
                 });
